@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">PinBoard</string>
+    <string name="note_id">noteid</string>
+    <string name="DATABASE_NOTES">mynotes_database</string>
+</resources>

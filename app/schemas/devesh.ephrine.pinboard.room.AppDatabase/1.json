@@ -1,0 +1,98 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "f11cd43795f70777147fa793bd369669",
+    "entities": [
+      {
+        "tableName": "Note",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `id` TEXT, `note_content` TEXT, `title` TEXT, `timestamp` TEXT, `color` TEXT, `label` TEXT, `last_modified` TEXT, `ispinned` INTEGER NOT NULL, `THUMB_IMAGE` BLOB)",
+        "fields": [
+          {
+            "fieldPath": "uid",
+            "columnName": "uid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ID",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "NOTE_content",
+            "columnName": "note_content",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "TITLE",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "TIME_STAMP",
+            "columnName": "timestamp",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "COLOR",
+            "columnName": "color",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "LABEL",
+            "columnName": "label",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "LAST_MODIFIED",
+            "columnName": "last_modified",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "IS_PINNED",
+            "columnName": "ispinned",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "THUMB_IMAGE",
+            "columnName": "THUMB_IMAGE",
+            "affinity": "BLOB",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "uid"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_Note_id_timestamp",
+            "unique": true,
+            "columnNames": [
+              "id",
+              "timestamp"
+            ],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_Note_id_timestamp` ON `${TABLE_NAME}` (`id`, `timestamp`)"
+          }
+        ],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f11cd43795f70777147fa793bd369669')"
+    ]
+  }
+}

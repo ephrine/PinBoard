@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/editTextTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Title"
+            android:inputType="textPersonName"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:onClick="clickOnNote"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/editTextNote"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:gravity="start|top"
+                android:hint="what's on your mind...."
+                android:inputType="textMultiLine"
+                android:isScrollContainer="true"
+                android:scrollbars="vertical" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

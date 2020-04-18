@@ -32,6 +32,7 @@ public class NotesActivity extends AppCompatActivity {
 String TAG="NotesActivity";
 
     EditText editTextNote;
+    EditText editTextTitle;
     Note mynote= new Note();
     AppDatabase noteDB;
 
@@ -40,15 +41,15 @@ String TAG="NotesActivity";
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes);
         editTextNote=findViewById(R.id.editTextNote);
+        editTextTitle=findViewById(R.id.editTextTitle);
 
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
         String id="";
         if(intent!=null){
             id = intent.getStringExtra(getString(R.string.note_id));
-
-
         }
+
         noteDB = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, getString(R.string.DATABASE_NOTES)).allowMainThreadQueries().build();
 
@@ -72,6 +73,24 @@ String TAG="NotesActivity";
 
             }
         });
+editTextTitle.addTextChangedListener(new TextWatcher() {
+
+    public void afterTextChanged(Editable s) {}
+
+    public void beforeTextChanged(CharSequence s, int start,
+                                  int count, int after) {
+    }
+
+    public void onTextChanged(CharSequence s, int start,
+                              int before, int count) {
+        if(s.length() != 0){
+            Log.d(TAG, "onTextChanged: Note: "+s);
+            mynote.TITLE=s.toString();
+            addtoDB(mynote);
+        }
+
+    }
+});
 
 
     }
@@ -84,18 +103,32 @@ String TAG="NotesActivity";
     }
 
     void getDatabase(String UID){
-        List<Note> n=new ArrayList<>();
+        try {
+            List<Note> n=new ArrayList<>();
 
-                n= noteDB.userDao().loadSelected(UID);
-                mynote=n.get(0);
+            n= noteDB.userDao().loadSelected(UID);
+            mynote=n.get(0);
+        }catch (Exception e){
+            Log.e(TAG, "getDatabase: ", e);
+        }
+
 
     }
     void addtoDB(Note note){
+        String t=String.valueOf(System.currentTimeMillis());
+
+        if(mynote.ID==null){
+            mynote.ID=t;
+            mynote.TIME_STAMP=t;
+            mynote.LAST_MODIFIED=t;
+        }
        /* String last_modified=String.valueOf(System.currentTimeMillis());
         mynote.NOTE_content=note;
         mynote.TITLE=title;
         mynote.LAST_MODIFIED=last_modified;
         */
+
+       mynote.LAST_MODIFIED=t;
         noteDB.userDao().insertAllr(note);
     }
 }
